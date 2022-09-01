@@ -4,7 +4,7 @@ const app = express()
 const port = 5000
 
 
-const qoutes = [
+const Qoutes = [
     {
         id: 1,
         firstName: ' Barack ',
@@ -55,6 +55,7 @@ const qoutes = [
     },
 ]
 
+let qoutes = Qoutes
 
 app.use(cors())
 app.use(express.json())
@@ -128,6 +129,63 @@ app.post('/qoutes', (req, res) => {
     }
 })
 
+app.patch('/qoutes/:id', (req, res) => {
+
+    let id = Number(req.params.id)
+    let findMatch = qoutes.find(qoute => qoute.id === id)
+
+    if (findMatch) {
+
+        if (req.body.firstName) {
+            findMatch.firstName = req.body.firstName
+        }
+
+        if (req.body.lastName) {
+            findMatch.lastName = req.body.lastName
+        }
+
+        if (req.body.age) {
+            findMatch.age = req.body.age
+        }
+
+        if (req.body.image) {
+            findMatch.image = req.body.image
+        }
+
+        if (req.body.qoute) {
+            findMatch.qoute = req.body.qoute
+        }
+
+        res.send(findMatch)
+    } else {
+        res.status(404).send({ error: "Not found" })
+    }
+})
+
+// app.delete('/qoutes/:id', (req, res) => {
+//     const id = Number(req.params.id)
+//     const indexToDelete = qoutes.findIndex(dog => dog.id === id)
+
+//     if (indexToDelete > -1) {
+//         qoutes = qoutes.filter(dog => dog.id !== id)
+//         res.send({ message: 'Dog deleted successfully.' })
+//     } else {
+//         res.status(404).send({ error: 'Dog not found.' })
+//     }
+// })
+
+app.delete('/qoute/:id', (req, res) => {
+
+    let id = Number(req.params.id)
+    let findIndexOfQoute = qoutes.findIndex(qoute => qoute.id === id)
+
+    if (findIndexOfQoute > -1) {
+        qoutes = qoutes.filter(qoute => qoute.id !== id)
+        res.send('We deleted this qoute successfully')
+    } else {
+        res.status(404).send({ error: "We can't delete this qoute" })
+    }
+})
 
 app.listen(port, () => {
     console.log(`We are logging at http://localhost:${port}/`)

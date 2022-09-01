@@ -162,18 +162,6 @@ app.patch('/qoutes/:id', (req, res) => {
     }
 })
 
-// app.delete('/qoutes/:id', (req, res) => {
-//     const id = Number(req.params.id)
-//     const indexToDelete = qoutes.findIndex(dog => dog.id === id)
-
-//     if (indexToDelete > -1) {
-//         qoutes = qoutes.filter(dog => dog.id !== id)
-//         res.send({ message: 'Dog deleted successfully.' })
-//     } else {
-//         res.status(404).send({ error: 'Dog not found.' })
-//     }
-// })
-
 app.delete('/qoute/:id', (req, res) => {
 
     let id = Number(req.params.id)

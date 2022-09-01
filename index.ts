@@ -93,7 +93,6 @@ app.get('/qoutes/:id', (req, res) => {
 app.post('/qoutes', (req, res) => {
 
     let errors: string[] = []
-
     if (typeof req.body.firstName !== 'string') {
         errors.push('There is an error with first name')
     }
@@ -125,7 +124,7 @@ app.post('/qoutes', (req, res) => {
         qoutes.push(newQoute)
         res.send(newQoute)
     } else {
-        res.send({ errors: "Error" })
+        res.status(404).send(errors)
     }
 })
 
